@@ -1,3 +1,4 @@
+
 <?php 
 // mengaktifkan session pada php
 session_start();
@@ -6,12 +7,12 @@ session_start();
 include 'koneksi.php';
 
 // menangkap data yang di kirim pada form login
-$username = $_POSH ['username'];
-$password = $_POSH ['password'];
+$username = $_POST ['username'];
+$password = $_POST ['password'];
 
 
 // menyeleksi data user dengan username dan password yang sesuai
-$login = mysqli_query ($koneksi,"select * from user where username = '$username' and pasword = '$password'");
+$login = mysqli_query($koneksi,"select * from user where username='$username' and password = '$password'");
 // menghitung jumlah data yang di temukan
 $cek = mysqli_num_rows($login);
 
@@ -30,7 +31,7 @@ if($cek > 0){
     header("location:halaman_admin.php");
 
 // cek jika user login sebagai pegawai
-}else if($data['level']=="pegawai");{
+}else if($data['level']=="pegawai"){
     // buat session login dan username
     $_SESSION['username'] = $username;
     $_SESSION['level'] = "pegawai";
@@ -38,7 +39,6 @@ if($cek > 0){
     header("location:halaman_pegawai.php");
 
     // cek jika user login sebagai pengurus
-
 }else if($data['level']=="pengurus"){
     // buat session login dan username
     $_SESSION['username'] = $username;
@@ -50,7 +50,7 @@ if($cek > 0){
 
     // alihkan ke halaman login kembali
     header("location:index.php?pesan=gagal");
-
+}
 }else{
  header("location:index.php?pesan=gagal");
 
